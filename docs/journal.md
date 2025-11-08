@@ -1,0 +1,15 @@
+# Внедрение Spring Modulith
+- проект имеет типичную слоёную архитектуру
+
+## Подключение зависимостей к существующему проекту
+
+- для внедрения Spring Modulith нужно:
+  - добавить зависимости в pom
+  - создать тест запускающий верификацию 
+    - `org.springframework.samples.petclinic.ModuleVerificationsTest.testModules`
+  - создать тест генерирующий документацию 
+    - `org.springframework.samples.petclinic.DocumentationWriter#writeDocumentationSnippets`
+  - запустить тесты
+  
+- верификация упадёт т.к. между пакетами есть цикл
+- увидеть его можно если сгенерировать документацию и заглянуть в `target/spring-modulith-docs/components.puml`
