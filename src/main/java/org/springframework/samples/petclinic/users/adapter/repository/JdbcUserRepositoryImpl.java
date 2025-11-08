@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.repository.jdbc;
+package org.springframework.samples.petclinic.users.adapter.repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +13,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.samples.petclinic.model.Role;
-import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.repository.UserRepository;
+import org.springframework.samples.petclinic.users.domain.model.Role;
+import org.springframework.samples.petclinic.users.domain.model.User;
+import org.springframework.samples.petclinic.users.domain.service.UserRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

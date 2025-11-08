@@ -15,10 +15,10 @@
  */
 package org.springframework.samples.petclinic.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.samples.petclinic.shared.model.BaseEntity;
+
 import java.time.LocalDate;
 
 /**

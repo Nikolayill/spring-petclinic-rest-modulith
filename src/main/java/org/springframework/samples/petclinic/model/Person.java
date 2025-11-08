@@ -19,6 +19,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.samples.petclinic.shared.model.BaseEntity;
 
 /**
  * Simple JavaBean domain object representing an person.

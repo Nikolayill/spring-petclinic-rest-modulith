@@ -1,12 +1,12 @@
-package org.springframework.samples.petclinic.repository.jpa;
+package org.springframework.samples.petclinic.users.adapter.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.repository.UserRepository;
+import org.springframework.samples.petclinic.users.domain.model.User;
+import org.springframework.samples.petclinic.users.domain.service.UserRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
