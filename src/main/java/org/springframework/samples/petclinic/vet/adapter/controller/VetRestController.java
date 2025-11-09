@@ -33,6 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -44,10 +45,10 @@ import java.util.stream.Collectors;
 @RequestMapping("api")
 public class VetRestController implements VetsApi {
 
-    private final VetService vetService;
-    private final SpecialtyService specialtyService;
-    private final VetMapper vetMapper;
-    private final SpecialtyMapper specialtyMapper;
+    final VetService vetService;
+    final SpecialtyService specialtyService;
+    final VetMapper vetMapper;
+    final SpecialtyMapper specialtyMapper;
 
     public VetRestController(VetService vetService,
                              SpecialtyService specialtyService,
@@ -62,27 +63,44 @@ public class VetRestController implements VetsApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<VetDto>> listVets() {
-        List<VetDto> vets = new ArrayList<>(vetMapper.toVetDtos(this.vetService.findAllVets()));
+        List<VetDto> vets = listVetsA();
         if (vets.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(vets, HttpStatus.OK);
     }
 
+    ArrayList<VetDto> listVetsA() {
+        return new ArrayList<>(vetMapper.toVetDtos(this.vetService.findAllVets()));
+    }
+
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<VetDto> getVet(Integer vetId)  {
-        Vet vet = this.vetService.findVetById(vetId);
+        VetDto vet = getVetA(vetId)
+            .orElse(null);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(vetMapper.toVetDto(vet), HttpStatus.OK);
+        return new ResponseEntity<>(vet, HttpStatus.OK);
+    }
+
+    Optional<VetDto> getVetA(Integer vetId) {
+        return Optional.ofNullable(this.vetService.findVetById(vetId))
+                       .map(vetMapper::toVetDto);
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<VetDto> addVet(VetDto vetDto) {
         HttpHeaders headers = new HttpHeaders();
+        VetDto result = addVetA(vetDto);
+        Integer id = result.getId();
+        headers.setLocation(UriComponentsBuilder.newInstance().path("/api/vets/{id}").buildAndExpand(id).toUri());
+        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
+    }
+
+    VetDto addVetA(VetDto vetDto) {
         Vet vet = vetMapper.toVet(vetDto);
         if(vet.getNrOfSpecialties() > 0){
             List<Specialty> vetSpecialities =
@@ -91,40 +109,63 @@ public class VetRestController implements VetsApi {
             vet.setSpecialties(vetSpecialities);
         }
         this.vetService.saveVet(vet);
-        headers.setLocation(UriComponentsBuilder.newInstance().path("/api/vets/{id}").buildAndExpand(vet.getId()).toUri());
-        return new ResponseEntity<>(vetMapper.toVetDto(vet), headers, HttpStatus.CREATED);
+        return vetMapper.toVetDto(vet);
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
-    public ResponseEntity<VetDto> updateVet(Integer vetId,VetDto vetDto)  {
-        Vet currentVet = this.vetService.findVetById(vetId);
-        if (currentVet == null) {
+    public ResponseEntity<VetDto> updateVet(Integer vetId, VetDto vetDto)  {
+        VetDto result = updateVetA(vetId, vetDto);
+
+        if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
+    }
+
+    VetDto updateVetA(Integer vetId, VetDto vetDto) {
+        VetDto result = null;
+
+        Vet currentVet = this.vetService.findVetById(vetId);
+        if (currentVet == null) {
+            return result;
+        }
+
         currentVet.setFirstName(vetDto.getFirstName());
         currentVet.setLastName(vetDto.getLastName());
         currentVet.clearSpecialties();
         for (Specialty spec : specialtyMapper.toSpecialtys(vetDto.getSpecialties())) {
             currentVet.addSpecialty(spec);
         }
-        if(currentVet.getNrOfSpecialties() > 0){
-            List<Specialty> vetSpecialities = this.specialtyService.findSpecialtiesByNameIn(currentVet.getSpecialties().stream().map(Specialty::getName).collect(Collectors.toSet()));
+        if (currentVet.getNrOfSpecialties() > 0) {
+            List<Specialty> vetSpecialities = this.specialtyService.findSpecialtiesByNameIn(currentVet.getSpecialties()
+                                                                                                      .stream()
+                                                                                                      .map(Specialty::getName)
+                                                                                                      .collect(Collectors.toSet()));
             currentVet.setSpecialties(vetSpecialities);
         }
         this.vetService.saveVet(currentVet);
-        return new ResponseEntity<>(vetMapper.toVetDto(currentVet), HttpStatus.NO_CONTENT);
+        result = vetMapper.toVetDto(currentVet);
+        return result;
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
     @Override
     public ResponseEntity<VetDto> deleteVet(Integer vetId) {
-        Vet vet = this.vetService.findVetById(vetId);
-        if (vet == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (deleteVetA(vetId).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        this.vetService.deleteVet(vet);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    Optional<Integer> deleteVetA(Integer vetId) {
+        Vet vet = this.vetService.findVetById(vetId);
+        if (vet != null) {
+            Integer id = vet.getId();
+            this.vetService.deleteVet(vet);
+            return Optional.of(id);
+        }
+        return Optional.empty();
     }
 }
