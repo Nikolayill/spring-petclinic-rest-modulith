@@ -44,8 +44,8 @@ public class PetTypeRestController implements PettypesApi {
     private final PetTypeMapper petTypeMapper;
 
 
-    public PetTypeRestController(ClinicService clinicService, PetTypeMapper petTypeMapper) {
-        this.petTypeService = clinicService;
+    public PetTypeRestController(PetTypeService petTypeService, PetTypeMapper petTypeMapper) {
+        this.petTypeService = petTypeService;
         this.petTypeMapper = petTypeMapper;
     }
 

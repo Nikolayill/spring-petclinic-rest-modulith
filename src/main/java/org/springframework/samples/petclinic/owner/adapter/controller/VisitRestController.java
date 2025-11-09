@@ -46,8 +46,8 @@ public class VisitRestController implements VisitsApi {
 
     private final VisitMapper visitMapper;
 
-    public VisitRestController(ClinicService clinicService, VisitMapper visitMapper) {
-        this.clinicService = clinicService;
+    public VisitRestController(VisitService visitService, VisitMapper visitMapper) {
+        this.clinicService = visitService;
         this.visitMapper = visitMapper;
     }
 

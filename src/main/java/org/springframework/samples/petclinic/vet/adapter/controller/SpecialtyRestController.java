@@ -19,6 +19,7 @@ package org.springframework.samples.petclinic.vet.adapter.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.vet.domain.service.SpecialtyService;
 import org.springframework.samples.petclinic.vet.domain.service.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 import org.springframework.samples.petclinic.rest.api.SpecialtiesApi;
@@ -41,12 +42,12 @@ import java.util.List;
 @RequestMapping("api")
 public class SpecialtyRestController implements SpecialtiesApi {
 
-    private final ClinicService clinicService;
+    private final SpecialtyService specialtyService;
 
     private final SpecialtyMapper specialtyMapper;
 
-    public SpecialtyRestController(ClinicService clinicService, SpecialtyMapper specialtyMapper) {
-        this.clinicService = clinicService;
+    public SpecialtyRestController(SpecialtyService specialtyService, SpecialtyMapper specialtyMapper) {
+        this.specialtyService = specialtyService;
         this.specialtyMapper = specialtyMapper;
     }
 
@@ -54,7 +55,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @Override
     public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
         List<SpecialtyDto> specialties = new ArrayList<>();
-        specialties.addAll(specialtyMapper.toSpecialtyDtos(this.clinicService.findAllSpecialties()));
+        specialties.addAll(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
         if (specialties.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -64,7 +65,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> getSpecialty(Integer specialtyId) {
-        Specialty specialty = this.clinicService.findSpecialtyById(specialtyId);
+        Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -76,7 +77,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     public ResponseEntity<SpecialtyDto> addSpecialty(SpecialtyDto specialtyDto) {
         HttpHeaders headers = new HttpHeaders();
         Specialty specialty = specialtyMapper.toSpecialty(specialtyDto);
-        this.clinicService.saveSpecialty(specialty);
+        this.specialtyService.saveSpecialty(specialty);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/specialties/{id}").buildAndExpand(specialty.getId()).toUri());
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), headers, HttpStatus.CREATED);
     }
@@ -84,12 +85,12 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> updateSpecialty(Integer specialtyId, SpecialtyDto specialtyDto) {
-        Specialty currentSpecialty = this.clinicService.findSpecialtyById(specialtyId);
+        Specialty currentSpecialty = this.specialtyService.findSpecialtyById(specialtyId);
         if (currentSpecialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         currentSpecialty.setName(specialtyDto.getName());
-        this.clinicService.saveSpecialty(currentSpecialty);
+        this.specialtyService.saveSpecialty(currentSpecialty);
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(currentSpecialty), HttpStatus.NO_CONTENT);
     }
 
@@ -97,11 +98,11 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @Transactional
     @Override
     public ResponseEntity<SpecialtyDto> deleteSpecialty(Integer specialtyId) {
-        Specialty specialty = this.clinicService.findSpecialtyById(specialtyId);
+        Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.clinicService.deleteSpecialty(specialty);
+        this.specialtyService.deleteSpecialty(specialty);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
