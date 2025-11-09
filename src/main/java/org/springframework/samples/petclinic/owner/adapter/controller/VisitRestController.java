@@ -16,20 +16,21 @@
 
 package org.springframework.samples.petclinic.owner.adapter.controller;
 
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
+import org.springframework.samples.petclinic.owner.domain.service.VisitService;
+import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
 import org.springframework.samples.petclinic.rest.api.VisitsApi;
 import org.springframework.samples.petclinic.rest.dto.VisitDto;
-import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
