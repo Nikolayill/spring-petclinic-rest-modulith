@@ -7,16 +7,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class CustomModuleDetectionStrategy implements ApplicationModuleDetectionStrategy {
-    private static final Set<String> LEGACY_MODULES = Set.of(
-        "config"
-        ,"mapper"
-        ,"model"
-        ,"repository"
-        ,"rest"
-        ,"security"
-        ,"service"
-        ,"util"
-    );
+    private static final Set<String> LEGACY_MODULES = Set.of();
 
     @Override
     public Stream<JavaPackage> getModuleBasePackages(JavaPackage basePackage) {
