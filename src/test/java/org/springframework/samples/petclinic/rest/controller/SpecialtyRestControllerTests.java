@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.vet.adapter.in.web.SpecialtyRestController;
 import org.springframework.samples.petclinic.vet.domain.service.SpecialtyService;
 import org.springframework.samples.petclinic.vet.domain.service.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;

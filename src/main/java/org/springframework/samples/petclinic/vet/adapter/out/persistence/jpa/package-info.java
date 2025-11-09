@@ -2,5 +2,5 @@
  * The classes in this package represent the JPA implementation
  * of PetClinic's persistence layer.
  */
-package org.springframework.samples.petclinic.vet.adapter.repository.jpa;
+package org.springframework.samples.petclinic.vet.adapter.out.persistence.jpa;
 

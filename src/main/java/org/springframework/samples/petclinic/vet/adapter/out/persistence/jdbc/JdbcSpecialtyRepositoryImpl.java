@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.vet.adapter.repository.jdbc;
+package org.springframework.samples.petclinic.vet.adapter.out.persistence.jdbc;
 
 import java.util.*;
 
@@ -30,7 +30,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
-import org.springframework.samples.petclinic.vet.adapter.repository.SpecialtyRepository;
+import org.springframework.samples.petclinic.vet.domain.port.out.SpecialtyRepository;
 import org.springframework.stereotype.Repository;
 
 /**

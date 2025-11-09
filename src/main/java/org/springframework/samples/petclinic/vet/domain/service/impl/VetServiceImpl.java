@@ -2,7 +2,7 @@ package org.springframework.samples.petclinic.vet.domain.service.impl;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.shared.util.FindEntityWrapper;
-import org.springframework.samples.petclinic.vet.adapter.repository.VetRepository;
+import org.springframework.samples.petclinic.vet.domain.port.out.VetRepository;
 import org.springframework.samples.petclinic.vet.domain.model.Vet;
 import org.springframework.samples.petclinic.vet.domain.service.VetService;
 import org.springframework.stereotype.Service;

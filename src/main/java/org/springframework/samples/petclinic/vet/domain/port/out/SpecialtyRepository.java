@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 the original author or authors.
+ * Copyright 2016-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.vet.adapter.repository;
+package org.springframework.samples.petclinic.vet.domain.port.out;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,10 +24,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 
 /**
- * @author Vitaliy Fedoriv
+ * Output port (repository interface) for specialty persistence operations.
+ * This defines the contract that persistence adapters must implement.
  *
+ * @author Vitaliy Fedoriv
+ * @author GitHub Copilot
  */
-
 public interface SpecialtyRepository {
 
 	Specialty findById(int id) throws DataAccessException;
@@ -39,5 +41,4 @@ public interface SpecialtyRepository {
 	void save(Specialty specialty) throws DataAccessException;
 
 	void delete(Specialty specialty) throws DataAccessException;
-
 }

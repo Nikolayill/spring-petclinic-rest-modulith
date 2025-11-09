@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.vet.adapter.repository.jdbc;
+package org.springframework.samples.petclinic.vet.adapter.out.persistence.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 import org.springframework.samples.petclinic.vet.domain.model.Vet;
-import org.springframework.samples.petclinic.vet.adapter.repository.VetRepository;
+import org.springframework.samples.petclinic.vet.domain.port.out.VetRepository;
 import org.springframework.samples.petclinic.shared.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 

@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.vet.adapter.repository.springdatajpa;
+package org.springframework.samples.petclinic.vet.adapter.out.persistence.springdatajpa;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
@@ -25,8 +28,17 @@ import org.springframework.samples.petclinic.vet.domain.model.Specialty;
  */
 
 @Profile("spring-data-jpa")
-public interface SpecialtyRepositoryOverride {
+public class SpringDataSpecialtyRepositoryImpl implements SpecialtyRepositoryOverride {
 
-	void delete(Specialty specialty);
+	@PersistenceContext
+    private EntityManager em;
+
+	@Override
+	public void delete(Specialty specialty) {
+        this.em.remove(this.em.contains(specialty) ? specialty : this.em.merge(specialty));
+		Integer specId = specialty.getId();
+		this.em.createNativeQuery("DELETE FROM vet_specialties WHERE specialty_id=" + specId).executeUpdate();
+		this.em.createQuery("DELETE FROM Specialty specialty WHERE id=" + specId).executeUpdate();
+	}
 
 }

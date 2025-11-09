@@ -18,7 +18,7 @@ package org.springframework.samples.petclinic.vet.domain.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.shared.util.FindEntityWrapper;
-import org.springframework.samples.petclinic.vet.adapter.repository.SpecialtyRepository;
+import org.springframework.samples.petclinic.vet.domain.port.out.SpecialtyRepository;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 import org.springframework.samples.petclinic.vet.domain.service.SpecialtyService;
 import org.springframework.stereotype.Service;

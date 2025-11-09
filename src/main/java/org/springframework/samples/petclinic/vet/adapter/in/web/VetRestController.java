@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 the original author or authors.
+ * Copyright 2016-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.rest.controller;
+package org.springframework.samples.petclinic.vet.adapter.in.web;
 
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.rest.api.VetsApi;
 import org.springframework.samples.petclinic.rest.dto.VetDto;
-import org.springframework.samples.petclinic.vet.VetUseCase;
+import org.springframework.samples.petclinic.vet.application.port.in.VetUseCase;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +31,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 /**
+ * Input adapter (REST controller) for vet operations.
+ * Implements the hexagonal architecture's adapter-in layer.
+ *
  * @author Vitaliy Fedoriv
+ * @author GitHub Copilot
  */
-
 @RestController
 @CrossOrigin(exposedHeaders = "errors, content-type")
 @RequestMapping("api")

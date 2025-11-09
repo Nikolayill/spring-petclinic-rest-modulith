@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.vet.adapter.repository.springdatajpa;
+package org.springframework.samples.petclinic.vet.adapter.out.persistence.springdatajpa;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
-import org.springframework.samples.petclinic.vet.adapter.repository.SpecialtyRepository;
-
 
 /**
  * @author Vitaliy Fedoriv
@@ -28,6 +25,8 @@ import org.springframework.samples.petclinic.vet.adapter.repository.SpecialtyRep
  */
 
 @Profile("spring-data-jpa")
-public interface SpringDataSpecialtyRepository extends SpecialtyRepository, Repository<Specialty, Integer>, SpecialtyRepositoryOverride {
+public interface SpecialtyRepositoryOverride {
+
+	void delete(Specialty specialty);
 
 }
