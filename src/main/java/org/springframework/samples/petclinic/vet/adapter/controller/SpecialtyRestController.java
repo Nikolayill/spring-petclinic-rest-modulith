@@ -33,6 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Vitaliy Fedoriv
@@ -43,9 +44,9 @@ import java.util.List;
 @RequestMapping("api")
 public class SpecialtyRestController implements SpecialtiesApi {
 
-    private final SpecialtyService specialtyService;
+    final SpecialtyService specialtyService;
 
-    private final SpecialtyMapper specialtyMapper;
+    final SpecialtyMapper specialtyMapper;
 
     public SpecialtyRestController(SpecialtyService specialtyService, SpecialtyMapper specialtyMapper) {
         this.specialtyService = specialtyService;
@@ -55,56 +56,90 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
-        List<SpecialtyDto> specialties = new ArrayList<>();
-        specialties.addAll(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
+        List<SpecialtyDto> specialties = listSpecialtiesA();
         if (specialties.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(specialties, HttpStatus.OK);
     }
 
+    List<SpecialtyDto> listSpecialtiesA() {
+        List<SpecialtyDto> specialties = new ArrayList<>();
+        specialties.addAll(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
+        return specialties;
+    }
+
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> getSpecialty(Integer specialtyId) {
-        Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
+        Optional<SpecialtyDto> specialtyDto = getSpecialtyA(specialtyId);
+        SpecialtyDto specialty = specialtyDto.orElse(null);
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), HttpStatus.OK);
+        return new ResponseEntity<>(specialty, HttpStatus.OK);
+    }
+
+    Optional<SpecialtyDto> getSpecialtyA(Integer specialtyId) {
+        return Optional.ofNullable(this.specialtyService.findSpecialtyById(specialtyId))
+                       .map(specialtyMapper::toSpecialtyDto);
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> addSpecialty(SpecialtyDto specialtyDto) {
         HttpHeaders headers = new HttpHeaders();
+        SpecialtyDto result = getSpecialtyDtoA(specialtyDto);
+        headers.setLocation(UriComponentsBuilder.newInstance().path("/api/specialties/{id}").buildAndExpand(result.getId()).toUri());
+        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
+    }
+
+    SpecialtyDto getSpecialtyDtoA(SpecialtyDto specialtyDto) {
         Specialty specialty = specialtyMapper.toSpecialty(specialtyDto);
         this.specialtyService.saveSpecialty(specialty);
-        headers.setLocation(UriComponentsBuilder.newInstance().path("/api/specialties/{id}").buildAndExpand(specialty.getId()).toUri());
-        return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), headers, HttpStatus.CREATED);
+        return specialtyMapper.toSpecialtyDto(specialty);
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> updateSpecialty(Integer specialtyId, SpecialtyDto specialtyDto) {
+        Optional<SpecialtyDto> response = updateSpecialityA(specialtyId, specialtyDto);
+
+
+        return response.map(r -> new ResponseEntity<>(r, HttpStatus.NO_CONTENT))
+                       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    Optional<SpecialtyDto> updateSpecialityA(Integer specialtyId, SpecialtyDto specialtyDto) {
+        Optional<SpecialtyDto> response = Optional.empty();
+
         Specialty currentSpecialty = this.specialtyService.findSpecialtyById(specialtyId);
-        if (currentSpecialty == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (currentSpecialty != null) {
+            currentSpecialty.setName(specialtyDto.getName());
+            this.specialtyService.saveSpecialty(currentSpecialty);
+            response = Optional.ofNullable(specialtyMapper.toSpecialtyDto(currentSpecialty));
         }
-        currentSpecialty.setName(specialtyDto.getName());
-        this.specialtyService.saveSpecialty(currentSpecialty);
-        return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(currentSpecialty), HttpStatus.NO_CONTENT);
+        return response;
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
     @Override
     public ResponseEntity<SpecialtyDto> deleteSpecialty(Integer specialtyId) {
-        Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
-        if (specialty == null) {
+        Optional<Integer> r = deleteSpecialityA(specialtyId);
+
+        if (r.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.specialtyService.deleteSpecialty(specialty);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    Optional<Integer> deleteSpecialityA(Integer specialtyId) {
+        Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
+        Optional<Integer> r = Optional.ofNullable(specialty).map(Specialty::getId);
+
+        this.specialtyService.deleteSpecialty(specialty);
+        return r;
     }
 
 }
