@@ -24,3 +24,5 @@ springboot-petclinic-server/
 
 # newman reports
 ./src/test/postman/reports/
+/.vscode/
+/.github/chatmodes/
