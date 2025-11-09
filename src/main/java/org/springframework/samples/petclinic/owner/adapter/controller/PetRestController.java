@@ -18,11 +18,12 @@ package org.springframework.samples.petclinic.owner.adapter.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.owner.domain.service.PetMapper;
+import org.springframework.samples.petclinic.owner.domain.service.mapper.PetMapper;
 import org.springframework.samples.petclinic.owner.domain.model.Pet;
 import org.springframework.samples.petclinic.rest.api.PetsApi;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.owner.domain.service.PetService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ import java.util.List;
 @RequestMapping("api")
 public class PetRestController implements PetsApi {
 
-    private final ClinicService clinicService;
+    private final PetService clinicService;
 
     private final PetMapper petMapper;
 

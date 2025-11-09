@@ -19,7 +19,7 @@ package org.springframework.samples.petclinic.owner.adapter.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.owner.domain.service.VisitMapper;
+import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.rest.api.VisitsApi;
 import org.springframework.samples.petclinic.rest.dto.VisitDto;

@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.owner.adapter.controller.PetTypeRestController;
-import org.springframework.samples.petclinic.owner.domain.service.PetTypeMapper;
+import org.springframework.samples.petclinic.owner.domain.service.mapper.PetTypeMapper;
 import org.springframework.samples.petclinic.owner.domain.model.PetType;
 import org.springframework.samples.petclinic.rest.advice.ExceptionControllerAdvice;
 import org.springframework.samples.petclinic.service.ClinicService;

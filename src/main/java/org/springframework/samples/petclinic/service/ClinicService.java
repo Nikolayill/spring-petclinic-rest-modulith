@@ -26,6 +26,8 @@ import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.domain.service.OwnerService;
+import org.springframework.samples.petclinic.owner.domain.service.PetService;
+import org.springframework.samples.petclinic.owner.domain.service.PetTypeService;
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
@@ -33,12 +35,7 @@ import org.springframework.samples.petclinic.owner.domain.service.OwnerService;
  * @author Michael Isvy
  * @author Vitaliy Fedoriv
  */
-public interface ClinicService extends OwnerService {
-
-    Collection<Pet> findAllPets() throws DataAccessException;
-
-    void deletePet(Pet pet) throws DataAccessException;
-
+public interface ClinicService extends OwnerService, PetService, PetTypeService {
 	Collection<Visit> findVisitsByPetId(int petId);
 	Visit findVisitById(int visitId) throws DataAccessException;
 	Collection<Visit> findAllVisits() throws DataAccessException;
@@ -50,11 +47,6 @@ public interface ClinicService extends OwnerService {
 	void saveVet(Vet vet) throws DataAccessException;
 	void deleteVet(Vet vet) throws DataAccessException;
 
-    PetType findPetTypeById(int petTypeId);
-	Collection<PetType> findAllPetTypes() throws DataAccessException;
-	Collection<PetType> findPetTypes() throws DataAccessException;
-	void savePetType(PetType petType) throws DataAccessException;
-	void deletePetType(PetType petType) throws DataAccessException;
 	Specialty findSpecialtyById(int specialtyId);
 	Collection<Specialty> findAllSpecialties() throws DataAccessException;
 	void saveSpecialty(Specialty specialty) throws DataAccessException;

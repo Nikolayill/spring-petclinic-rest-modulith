@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.owner.adapter.controller.VisitRestController;
-import org.springframework.samples.petclinic.owner.domain.service.VisitMapper;
+import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
 import org.springframework.samples.petclinic.owner.domain.model.Owner;
 import org.springframework.samples.petclinic.owner.domain.model.Pet;
 import org.springframework.samples.petclinic.owner.domain.model.PetType;

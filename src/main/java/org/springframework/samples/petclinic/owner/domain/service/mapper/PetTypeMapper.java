@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.owner.domain.service;
+package org.springframework.samples.petclinic.owner.domain.service.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

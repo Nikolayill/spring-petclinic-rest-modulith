@@ -18,9 +18,5 @@ public interface OwnerService {
 
     Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
 
-    Pet findPetById(int id) throws DataAccessException;
-
-    void savePet(Pet pet) throws DataAccessException;
-
     void saveVisit(Visit visit) throws DataAccessException;
 }
