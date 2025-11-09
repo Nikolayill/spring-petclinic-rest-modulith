@@ -20,14 +20,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.owner.domain.model.Pet;
-import org.springframework.samples.petclinic.owner.domain.model.PetType;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.domain.service.OwnerService;
 import org.springframework.samples.petclinic.owner.domain.service.PetService;
 import org.springframework.samples.petclinic.owner.domain.service.PetTypeService;
+import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
@@ -35,12 +33,8 @@ import org.springframework.samples.petclinic.owner.domain.service.PetTypeService
  * @author Michael Isvy
  * @author Vitaliy Fedoriv
  */
-public interface ClinicService extends OwnerService, PetService, PetTypeService {
-	Collection<Visit> findVisitsByPetId(int petId);
-	Visit findVisitById(int visitId) throws DataAccessException;
-	Collection<Visit> findAllVisits() throws DataAccessException;
+public interface ClinicService extends OwnerService, PetService, PetTypeService, VisitService {
 
-    void deleteVisit(Visit visit) throws DataAccessException;
 	Vet findVetById(int id) throws DataAccessException;
 	Collection<Vet> findVets() throws DataAccessException;
 	Collection<Vet> findAllVets() throws DataAccessException;

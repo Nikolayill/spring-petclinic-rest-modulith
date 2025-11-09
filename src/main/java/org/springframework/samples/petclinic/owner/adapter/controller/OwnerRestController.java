@@ -20,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.domain.service.PetService;
+import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 import org.springframework.samples.petclinic.owner.domain.service.mapper.OwnerMapper;
 import org.springframework.samples.petclinic.owner.domain.service.mapper.PetMapper;
 import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
@@ -54,6 +55,8 @@ public class OwnerRestController implements OwnersApi {
 
     private final PetService petService;
 
+    private final VisitService visitService;
+
     private final OwnerMapper ownerMapper;
 
     private final PetMapper petMapper;
@@ -66,6 +69,7 @@ public class OwnerRestController implements OwnersApi {
                                VisitMapper visitMapper) {
         this.ownerService = clinicService;
         this.petService = clinicService;
+        this.visitService = clinicService;
         this.ownerMapper = ownerMapper;
         this.petMapper = petMapper;
         this.visitMapper = visitMapper;
@@ -177,7 +181,7 @@ public class OwnerRestController implements OwnersApi {
         Pet pet = new Pet();
         pet.setId(petId);
         visit.setPet(pet);
-        this.ownerService.saveVisit(visit);
+        this.visitService.saveVisit(visit);
         VisitDto visitDto = visitMapper.toVisitDto(visit);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/visits/{id}")
             .buildAndExpand(visit.getId()).toUri());

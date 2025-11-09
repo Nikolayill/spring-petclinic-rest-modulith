@@ -17,6 +17,4 @@ public interface OwnerService {
     void deleteOwner(Owner owner) throws DataAccessException;
 
     Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
-
-    void saveVisit(Visit visit) throws DataAccessException;
 }

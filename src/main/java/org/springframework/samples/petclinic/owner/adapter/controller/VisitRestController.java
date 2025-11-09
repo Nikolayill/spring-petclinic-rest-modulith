@@ -24,6 +24,7 @@ import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.rest.api.VisitsApi;
 import org.springframework.samples.petclinic.rest.dto.VisitDto;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -41,7 +42,7 @@ import java.util.List;
 @RequestMapping("api")
 public class VisitRestController implements VisitsApi {
 
-    private final ClinicService clinicService;
+    private final VisitService clinicService;
 
     private final VisitMapper visitMapper;
 
