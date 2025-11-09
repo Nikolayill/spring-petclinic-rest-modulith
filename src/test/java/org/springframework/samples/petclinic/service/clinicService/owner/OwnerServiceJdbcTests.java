@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.service.clinicService;
+package org.springframework.samples.petclinic.service.clinicService.owner;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-/**
- * <p> Integration test using the jdbc profile.
- *
- * @author Thomas Risberg
- * @author Michael Isvy
- * @see AbstractClinicServiceTests AbstractClinicServiceTests for more details. </p>
- */
+
 @SpringBootTest
 @ActiveProfiles({"jdbc", "hsqldb"})
-class ClinicServiceJdbcTests extends AbstractClinicServiceTests {
+class OwnerServiceJdbcTests extends AbstractOwnerServiceTests {
 
 }
