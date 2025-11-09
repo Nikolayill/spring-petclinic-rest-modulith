@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.vet.domain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.springframework.samples.petclinic.shared.NamedEntity;
+import org.springframework.samples.petclinic.shared.model.NamedEntity;
 
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).

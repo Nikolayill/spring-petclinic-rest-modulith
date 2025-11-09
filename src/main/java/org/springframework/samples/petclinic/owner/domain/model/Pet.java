@@ -19,7 +19,7 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
 import jakarta.persistence.*;
-import org.springframework.samples.petclinic.shared.NamedEntity;
+import org.springframework.samples.petclinic.shared.model.NamedEntity;
 
 import java.time.LocalDate;
 import java.util.*;

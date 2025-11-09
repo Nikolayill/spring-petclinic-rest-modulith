@@ -29,7 +29,7 @@ import org.springframework.samples.petclinic.owner.domain.model.Pet;
 import org.springframework.samples.petclinic.owner.domain.model.PetType;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.adapter.repository.OwnerRepository;
-import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.samples.petclinic.shared.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;

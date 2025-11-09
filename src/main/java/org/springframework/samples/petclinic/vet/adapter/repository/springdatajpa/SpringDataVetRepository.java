@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 the original author or authors.
+ * Copyright 2002-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springframework.samples.petclinic.repository.springdatajpa;
+package org.springframework.samples.petclinic.vet.adapter.repository.springdatajpa;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.samples.petclinic.model.Specialty;
+import org.springframework.data.repository.Repository;
+import org.springframework.samples.petclinic.vet.domain.model.Vet;
+import org.springframework.samples.petclinic.vet.adapter.repository.VetRepository;
 
 /**
- * @author Vitaliy Fedoriv
+ * Spring Data JPA specialization of the {@link VetRepository} interface
  *
+ * @author Michael Isvy
+ * @since 15.1.2013
  */
 
 @Profile("spring-data-jpa")
-public interface SpecialtyRepositoryOverride {
-	
-	void delete(Specialty specialty);
-
+public interface SpringDataVetRepository extends VetRepository, Repository<Vet, Integer> {
 }

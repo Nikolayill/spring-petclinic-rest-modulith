@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.repository.jpa;
+package org.springframework.samples.petclinic.vet.adapter.repository.jpa;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.repository.VetRepository;
+import org.springframework.samples.petclinic.vet.domain.model.Vet;
+import org.springframework.samples.petclinic.vet.adapter.repository.VetRepository;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;

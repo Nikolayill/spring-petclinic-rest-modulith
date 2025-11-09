@@ -1,8 +1,8 @@
-package org.springframework.samples.petclinic.mapper;
+package org.springframework.samples.petclinic.vet.domain.service.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.vet.domain.model.Vet;
 import org.springframework.samples.petclinic.rest.dto.VetDto;
 import org.springframework.samples.petclinic.rest.dto.VetFieldsDto;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.repository.jdbc;
+package org.springframework.samples.petclinic.vet.adapter.repository.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,10 +35,10 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.samples.petclinic.model.Specialty;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.samples.petclinic.vet.domain.model.Specialty;
+import org.springframework.samples.petclinic.vet.domain.model.Vet;
+import org.springframework.samples.petclinic.vet.adapter.repository.VetRepository;
+import org.springframework.samples.petclinic.shared.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -102,7 +102,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
         }
         return vets;
     }
-    
+
 	@Override
 	public Vet findById(int id) throws DataAccessException {
 		Vet vet;
@@ -158,7 +158,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
 		this.namedParameterJdbcTemplate.update("DELETE FROM vet_specialties WHERE vet_id=:id", params);
 		this.namedParameterJdbcTemplate.update("DELETE FROM vets WHERE id=:id", params);
 	}
-	
+
 	private void updateVetSpecialties(Vet vet) throws DataAccessException {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", vet.getId());
