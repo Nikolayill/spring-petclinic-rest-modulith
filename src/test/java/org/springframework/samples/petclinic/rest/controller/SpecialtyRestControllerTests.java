@@ -27,7 +27,6 @@ import org.springframework.samples.petclinic.vet.domain.service.mapper.Specialty
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 import org.springframework.samples.petclinic.rest.advice.ExceptionControllerAdvice;
 import org.springframework.samples.petclinic.service.clinicService.ApplicationTestConfig;
-import org.springframework.samples.petclinic.vet.adapter.controller.SpecialtyRestController;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
