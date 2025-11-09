@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2013 the original author or authors.
+ * Copyright 2016-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.springframework.samples.petclinic.shared.NamedEntity;
+package org.springframework.samples.petclinic.owner.adapter.repository.springdatajpa;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.samples.petclinic.owner.domain.model.Pet;
 
 /**
- * Models a {@link Vet Vet's} specialty (for example, dentistry).
+ * @author Vitaliy Fedoriv
  *
- * @author Juergen Hoeller
  */
-@Entity
-@Table(name = "specialties")
-public class Specialty extends NamedEntity {
+
+@Profile("spring-data-jpa")
+public interface PetRepositoryOverride {
+
+	void delete(Pet pet);
 
 }

@@ -21,6 +21,8 @@ import org.springframework.beans.support.PropertyComparator;
 
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.XmlElement;
+import org.springframework.samples.petclinic.shared.model.Person;
+
 import java.util.*;
 
 /**

@@ -13,19 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.owner.adapter.repository.jdbc;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.springframework.samples.petclinic.shared.NamedEntity;
+import org.springframework.samples.petclinic.owner.domain.model.Pet;
 
 /**
- * Models a {@link Vet Vet's} specialty (for example, dentistry).
+ * Subclass of Pet that carries temporary id properties which are only relevant for a JDBC implementation of the
+ * PetRepository.
  *
  * @author Juergen Hoeller
  */
-@Entity
-@Table(name = "specialties")
-public class Specialty extends NamedEntity {
+public class JdbcPet extends Pet {
+
+    private int typeId;
+
+    private int ownerId;
+
+    public int getTypeId() {
+        return this.typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public int getOwnerId() {
+        return this.ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
 
 }

@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.owner.domain.model.Pet;
+import org.springframework.samples.petclinic.owner.domain.model.PetType;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.owner.domain.OwnerService;
+import org.springframework.samples.petclinic.owner.domain.model.Visit;
+import org.springframework.samples.petclinic.owner.domain.service.OwnerService;
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
