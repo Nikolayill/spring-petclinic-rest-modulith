@@ -24,7 +24,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.rest.advice.ExceptionControllerAdvice;
 import org.springframework.samples.petclinic.service.clinicService.ApplicationTestConfig;
-import org.springframework.samples.petclinic.vet.adapter.controller.VetRestController;
 import org.springframework.samples.petclinic.vet.domain.model.Vet;
 import org.springframework.samples.petclinic.vet.domain.service.SpecialtyService;
 import org.springframework.samples.petclinic.vet.domain.service.VetService;
