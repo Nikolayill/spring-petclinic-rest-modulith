@@ -30,7 +30,6 @@ import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.domain.service.OwnerService;
 import org.springframework.samples.petclinic.rest.api.OwnersApi;
 import org.springframework.samples.petclinic.rest.dto.*;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,13 +62,15 @@ public class OwnerRestController implements OwnersApi {
 
     private final VisitMapper visitMapper;
 
-    public OwnerRestController(ClinicService clinicService,
+    public OwnerRestController(OwnerService ownerService,
+                               PetService petService,
+                               VisitService visitService,
                                OwnerMapper ownerMapper,
                                PetMapper petMapper,
                                VisitMapper visitMapper) {
-        this.ownerService = clinicService;
-        this.petService = clinicService;
-        this.visitService = clinicService;
+        this.ownerService = ownerService;
+        this.petService = petService;
+        this.visitService = visitService;
         this.ownerMapper = ownerMapper;
         this.petMapper = petMapper;
         this.visitMapper = visitMapper;
