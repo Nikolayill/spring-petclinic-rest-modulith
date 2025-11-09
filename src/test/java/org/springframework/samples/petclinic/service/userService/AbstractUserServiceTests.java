@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.users.domain.model.User;
-import org.springframework.samples.petclinic.users.domain.service.UserService;
+import org.springframework.samples.petclinic.user.domain.model.User;
+import org.springframework.samples.petclinic.user.domain.service.UserService;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

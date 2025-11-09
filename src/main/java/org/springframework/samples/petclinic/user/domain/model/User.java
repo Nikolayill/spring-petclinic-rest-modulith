@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.users.domain.model;
+package org.springframework.samples.petclinic.user.domain.model;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,9 +1,9 @@
-package org.springframework.samples.petclinic.users.domain.service;
+package org.springframework.samples.petclinic.user.domain.service;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.samples.petclinic.users.domain.model.Role;
-import org.springframework.samples.petclinic.users.domain.model.User;
+import org.springframework.samples.petclinic.user.domain.model.Role;
+import org.springframework.samples.petclinic.user.domain.model.User;
 import org.springframework.samples.petclinic.rest.dto.RoleDto;
 import org.springframework.samples.petclinic.rest.dto.UserDto;
 

@@ -1,8 +1,8 @@
-package org.springframework.samples.petclinic.users.domain.service;
+package org.springframework.samples.petclinic.user.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.users.domain.model.Role;
-import org.springframework.samples.petclinic.users.domain.model.User;
+import org.springframework.samples.petclinic.user.domain.model.Role;
+import org.springframework.samples.petclinic.user.domain.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

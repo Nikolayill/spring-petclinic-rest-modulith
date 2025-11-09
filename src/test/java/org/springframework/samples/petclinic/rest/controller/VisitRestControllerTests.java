@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.samples.petclinic.owner.adapter.controller.VisitRestController;
 import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 import org.springframework.samples.petclinic.owner.domain.service.mapper.VisitMapper;
 import org.springframework.samples.petclinic.owner.domain.model.Owner;

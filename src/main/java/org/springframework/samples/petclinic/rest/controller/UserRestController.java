@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.users.adapter.controller;
+package org.springframework.samples.petclinic.rest.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.users.domain.service.UserMapper;
-import org.springframework.samples.petclinic.users.domain.model.User;
 import org.springframework.samples.petclinic.rest.api.UsersApi;
 import org.springframework.samples.petclinic.rest.dto.UserDto;
-import org.springframework.samples.petclinic.users.domain.service.UserService;
+import org.springframework.samples.petclinic.user.UserUseCases;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,23 +30,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(exposedHeaders = "errors, content-type")
 @RequestMapping("api")
-public class UserRestController implements UsersApi {
+class UserRestController implements UsersApi {
 
-    private final UserService userService;
-    private final UserMapper userMapper;
+    private final UserUseCases useCases;
 
-    public UserRestController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
+    public UserRestController(UserUseCases useCases) {
+        this.useCases = useCases;
     }
 
-
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+    @PreAuthorize("hasRole(@roles.ADMIN)")
     @Override
     public ResponseEntity<UserDto> addUser(UserDto userDto) {
         HttpHeaders headers = new HttpHeaders();
-        User user = userMapper.toUser(userDto);
-        this.userService.saveUser(user);
-        return new ResponseEntity<>(userMapper.toUserDto(user), headers, HttpStatus.CREATED);
+        UserDto result = useCases.addUser(userDto);
+        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
     }
 }
