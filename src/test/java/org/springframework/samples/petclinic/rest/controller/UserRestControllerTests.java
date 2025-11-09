@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.user.domain.service.UserMapper;
 import org.springframework.samples.petclinic.user.domain.model.User;
 import org.springframework.samples.petclinic.rest.advice.ExceptionControllerAdvice;
 import org.springframework.samples.petclinic.user.domain.service.UserService;
+import org.springframework.samples.petclinic.user.adapter.in.web.UserRestController;
 import org.springframework.samples.petclinic.service.clinicService.ApplicationTestConfig;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;

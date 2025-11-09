@@ -1,14 +1,14 @@
 package org.springframework.samples.petclinic.user.application;
 
 import org.springframework.samples.petclinic.rest.dto.UserDto;
-import org.springframework.samples.petclinic.user.UserUseCases;
+import org.springframework.samples.petclinic.user.application.port.in.UserUseCase;
 import org.springframework.samples.petclinic.user.domain.model.User;
 import org.springframework.samples.petclinic.user.domain.service.UserMapper;
 import org.springframework.samples.petclinic.user.domain.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
-class UserUseCasesImpl implements UserUseCases {
+class UserUseCasesImpl implements UserUseCase {
     private final UserService userService;
     private final UserMapper userMapper;
 
