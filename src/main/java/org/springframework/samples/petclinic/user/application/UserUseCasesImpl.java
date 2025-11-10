@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.user.application;
 
 import org.springframework.samples.petclinic.rest.dto.UserDto;
-import org.springframework.samples.petclinic.user.application.port.in.UserUseCase;
+import org.springframework.samples.petclinic.user.UserUseCase;
 import org.springframework.samples.petclinic.user.domain.model.User;
 import org.springframework.samples.petclinic.user.domain.service.UserMapper;
 import org.springframework.samples.petclinic.user.domain.service.UserService;

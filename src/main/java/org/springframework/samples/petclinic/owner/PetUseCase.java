@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.owner.application.port.in;
+package org.springframework.samples.petclinic.owner;
 
 import org.springframework.samples.petclinic.rest.dto.PetDto;
 

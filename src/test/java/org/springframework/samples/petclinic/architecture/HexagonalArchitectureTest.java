@@ -125,11 +125,11 @@ public class HexagonalArchitectureTest {
     }
 
     /**
-     * Generic test: Use case interfaces should be in correct package
+     * Generic test: Use case interfaces should be in module root for Spring Modulith compliance
      */
-    @ParameterizedTest(name = "Module ''{0}'' - use cases should be in application.port.in")
+    @ParameterizedTest(name = "Module ''{0}'' - use cases should be in module root")
     @MethodSource("businessModules")
-    void use_cases_should_be_in_application_port_in(String moduleName) {
+    void use_cases_should_be_in_module_root(String moduleName) {
         JavaClasses classes = new ClassFileImporter()
             .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
             .importPackages(BASE_PACKAGE + "." + moduleName);
@@ -137,8 +137,8 @@ public class HexagonalArchitectureTest {
         classes()
             .that().haveSimpleNameEndingWith("UseCase")
             .and().areInterfaces()
-            .should().resideInAPackage(modulePackage(moduleName, "application.port.in"))
-            .because("Use case interfaces are input ports")
+            .should().resideInAPackage(BASE_PACKAGE + "." + moduleName)
+            .because("Use case interfaces are driving ports and must be accessible from outside the module for Spring Modulith compliance")
             .check(classes);
     }
 

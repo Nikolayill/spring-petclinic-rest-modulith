@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.user.application.port.in;
+package org.springframework.samples.petclinic.user;
 
 import org.springframework.samples.petclinic.rest.dto.UserDto;
 

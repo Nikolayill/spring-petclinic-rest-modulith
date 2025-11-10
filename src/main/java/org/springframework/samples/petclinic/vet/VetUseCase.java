@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.petclinic.vet.application.port.in;
+package org.springframework.samples.petclinic.vet;
 
 import org.springframework.samples.petclinic.rest.dto.VetDto;
 

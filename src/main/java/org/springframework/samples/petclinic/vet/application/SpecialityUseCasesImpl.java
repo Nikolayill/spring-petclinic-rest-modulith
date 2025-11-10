@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.vet.application;
 
 import org.springframework.samples.petclinic.rest.dto.SpecialtyDto;
-import org.springframework.samples.petclinic.vet.application.port.in.SpecialtyUseCase;
+import org.springframework.samples.petclinic.vet.SpecialtyUseCase;
 import org.springframework.samples.petclinic.vet.domain.model.Specialty;
 import org.springframework.samples.petclinic.vet.domain.service.SpecialtyService;
 import org.springframework.samples.petclinic.vet.domain.service.mapper.SpecialtyMapper;

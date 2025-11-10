@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.rest.api.UsersApi;
 import org.springframework.samples.petclinic.rest.dto.UserDto;
-import org.springframework.samples.petclinic.user.application.port.in.UserUseCase;
+import org.springframework.samples.petclinic.user.UserUseCase;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -18,7 +18,7 @@ package org.springframework.samples.petclinic.owner.adapter.in.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.owner.application.port.in.PetUseCase;
+import org.springframework.samples.petclinic.owner.PetUseCase;
 import org.springframework.samples.petclinic.rest.api.PetsApi;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
 import org.springframework.security.access.prepost.PreAuthorize;
