@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.owner.application;
 
-import org.springframework.samples.petclinic.owner.PetTypeUseCase;
+import org.springframework.samples.petclinic.owner.application.port.in.PetTypeUseCase;
 import org.springframework.samples.petclinic.owner.domain.model.PetType;
 import org.springframework.samples.petclinic.owner.domain.service.PetTypeService;
 import org.springframework.samples.petclinic.owner.domain.service.mapper.PetTypeMapper;

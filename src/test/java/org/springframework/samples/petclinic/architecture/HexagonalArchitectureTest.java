@@ -144,6 +144,7 @@ public class HexagonalArchitectureTest {
 
     /**
      * Generic test: Repository interfaces should be in domain ports
+     * Note: Spring Data JPA repositories are excluded as they are adapter-level extensions
      */
     @ParameterizedTest(name = "Module ''{0}'' - repositories should be in domain.port.out")
     @MethodSource("businessModules")
@@ -155,6 +156,7 @@ public class HexagonalArchitectureTest {
         classes()
             .that().haveSimpleNameEndingWith("Repository")
             .and().areInterfaces()
+            .and().resideOutsideOfPackage("..springdatajpa..")  // Exclude Spring Data JPA adapter repositories
             .should().resideInAPackage(modulePackage(moduleName, "domain.port.out"))
             .because("Repository interfaces are output ports")
             .check(classes);

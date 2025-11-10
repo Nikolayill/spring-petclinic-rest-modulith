@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.owner.domain.service.impl;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.owner.adapter.repository.VisitRepository;
+import org.springframework.samples.petclinic.owner.domain.port.out.VisitRepository;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.domain.service.VisitService;
 import org.springframework.samples.petclinic.shared.util.FindEntityWrapper;
