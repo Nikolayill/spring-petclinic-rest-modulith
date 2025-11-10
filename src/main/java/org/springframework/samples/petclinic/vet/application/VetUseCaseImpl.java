@@ -31,7 +31,7 @@ public class VetUseCaseImpl implements VetUseCase {
 
     @Override
     public ArrayList<VetDto> listVets() {
-        return new ArrayList<VetDto>(vetMapper.toVetDtos(this.vetService.findAllVets()));
+        return new ArrayList<>(vetMapper.toVetDtos(this.vetService.findAllVets()));
     }
 
     @Override

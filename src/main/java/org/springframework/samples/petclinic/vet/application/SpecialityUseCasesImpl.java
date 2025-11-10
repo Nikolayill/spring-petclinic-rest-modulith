@@ -23,9 +23,7 @@ public class SpecialityUseCasesImpl implements SpecialtyUseCase {
 
     @Override
     public List<SpecialtyDto> listSpecialties() {
-        List<SpecialtyDto> specialties = new ArrayList<SpecialtyDto>();
-        specialties.addAll(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
-        return specialties;
+        return new ArrayList<>(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
     }
 
     @Override
