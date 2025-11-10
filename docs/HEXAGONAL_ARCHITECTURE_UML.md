@@ -1,6 +1,8 @@
 # Hexagonal Architecture Module Organization
 
-This document shows the essential structure and organization of hexagonal architecture modules.
+This document shows the essential structure and organization of hexagonal architecture modules with Spring Modulith compliance.
+
+**📌 Note**: UseCase interfaces are located at module root (not in `application.port.in`) to ensure Spring Modulith compliance - see ADR-004 for details.
 
 ## 📐 Hexagonal Architecture - Module Organization
 
@@ -16,6 +18,9 @@ skinparam class {
 }
 
 package "module" <<module>> {
+    ' Public API at module root (Spring Modulith compliance)
+    interface UseCase <<usecase>>
+    
     package "domain" <<domain>> {
         package "model" {
             class Entity <<domain>>
@@ -28,10 +33,6 @@ package "module" <<module>> {
         }
     }
     package "application" { 
-        package "port.in" <<usecase>> {
-            interface UseCase <<usecase>>
-        }
-
         package "service" <<service>> {
             class Service <<service>>
         }
@@ -129,5 +130,8 @@ end note
 - **🔵 Domain** (blue) - No external dependencies, pure business logic
 - **🟡 Application** (yellow) - Depends only on domain, orchestrates use cases  
 - **🔴 Adapters** (coral) - Depends on application ports, handles infrastructure
+- **⭐ UseCase Interface** - Located at module root for Spring Modulith public API compliance
 
 **Dependency Direction:** Always points inward → Domain is protected from external changes
+
+**Spring Modulith Integration:** UseCase interfaces at module root ensure they are part of the public module API surface, allowing proper inter-module communication while maintaining hexagonal architecture principles.

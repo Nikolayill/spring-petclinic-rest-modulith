@@ -22,6 +22,7 @@ This guide provides step-by-step instructions for developing within the hexagona
 ### Module Structure
 ```
 src/main/java/org/springframework/samples/petclinic/{module}/
+├── {ModuleName}UseCase.java   # Use case interfaces (PUBLIC API at module root)
 ├── adapter/
 │   ├── in/
 │   │   └── web/           # REST controllers, command handlers
@@ -32,15 +33,14 @@ src/main/java/org/springframework/samples/petclinic/{module}/
 │       ├── postgres/     # PostgreSQL-specific adapters
 │       └── springdatajpa/ # Spring Data JPA repositories
 ├── application/
-│   ├── port/
-│   │   ├── in/           # Use case interfaces (driving ports)
-│   │   └── out/          # Repository interfaces (driven ports)
-│   └── service/          # Use case implementations
+│   └── {ModuleName}UseCaseImpl.java  # Use case implementations
 └── domain/
     ├── model/            # Domain entities and value objects
     └── port/
-        └── out/          # Domain repository interfaces
+        └── out/          # Repository interfaces (driven ports)
 ```
+
+**📌 Important**: UseCase interfaces are located at module root for Spring Modulith compliance (see ADR-004)
 
 ### Dependency Rules
 - ✅ **Domain** → No dependencies (pure business logic)
@@ -164,9 +164,11 @@ public interface BookingRepository {
 
 ### Step 4: Create Use Case Interfaces
 
-**File**: `src/main/java/org/springframework/samples/petclinic/booking/application/port/in/CreateBookingUseCase.java`
+**📌 Important**: UseCase interfaces are located at module root for Spring Modulith compliance
+
+**File**: `src/main/java/org/springframework/samples/petclinic/booking/CreateBookingUseCase.java`
 ```java
-package org.springframework.samples.petclinic.booking.application.port.in;
+package org.springframework.samples.petclinic.booking;
 
 import org.springframework.samples.petclinic.booking.domain.model.Booking;
 import java.time.LocalDateTime;
@@ -188,9 +190,9 @@ public interface CreateBookingUseCase {
 }
 ```
 
-**File**: `src/main/java/org/springframework/samples/petclinic/booking/application/port/in/ManageBookingUseCase.java`
+**File**: `src/main/java/org/springframework/samples/petclinic/booking/ManageBookingUseCase.java`
 ```java
-package org.springframework.samples.petclinic.booking.application.port.in;
+package org.springframework.samples.petclinic.booking;
 
 import org.springframework.samples.petclinic.booking.domain.model.Booking;
 
@@ -209,12 +211,12 @@ public interface ManageBookingUseCase {
 
 ### Step 5: Implement Use Cases
 
-**File**: `src/main/java/org/springframework/samples/petclinic/booking/application/service/BookingService.java`
+**File**: `src/main/java/org/springframework/samples/petclinic/booking/application/BookingService.java`
 ```java
-package org.springframework.samples.petclinic.booking.application.service;
+package org.springframework.samples.petclinic.booking.application;
 
-import org.springframework.samples.petclinic.booking.application.port.in.CreateBookingUseCase;
-import org.springframework.samples.petclinic.booking.application.port.in.ManageBookingUseCase;
+import org.springframework.samples.petclinic.booking.CreateBookingUseCase;
+import org.springframework.samples.petclinic.booking.ManageBookingUseCase;
 import org.springframework.samples.petclinic.booking.domain.model.Booking;
 import org.springframework.samples.petclinic.booking.domain.port.out.BookingRepository;
 import org.springframework.stereotype.Service;
@@ -352,8 +354,8 @@ package org.springframework.samples.petclinic.booking.adapter.in.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.booking.application.port.in.CreateBookingUseCase;
-import org.springframework.samples.petclinic.booking.application.port.in.ManageBookingUseCase;
+import org.springframework.samples.petclinic.booking.CreateBookingUseCase;
+import org.springframework.samples.petclinic.booking.ManageBookingUseCase;
 import org.springframework.samples.petclinic.booking.domain.model.Booking;
 import org.springframework.web.bind.annotation.*;
 
@@ -486,9 +488,9 @@ public class Booking {
 
 **Example**: Adding a search capability to the Owner module
 
-**File**: `src/main/java/org/springframework/samples/petclinic/owner/application/port/in/SearchOwnerUseCase.java`
+**File**: `src/main/java/org/springframework/samples/petclinic/owner/SearchOwnerUseCase.java`
 ```java
-package org.springframework.samples.petclinic.owner.application.port.in;
+package org.springframework.samples.petclinic.owner;
 
 import org.springframework.samples.petclinic.owner.domain.model.Owner;
 import java.util.List;
@@ -795,9 +797,9 @@ public class Address {
 
 ### Query Object Pattern
 
-**File**: `src/main/java/org/springframework/samples/petclinic/booking/application/port/in/BookingQuery.java`
+**File**: `src/main/java/org/springframework/samples/petclinic/booking/BookingQuery.java`
 ```java
-package org.springframework.samples.petclinic.booking.application.port.in;
+package org.springframework.samples.petclinic.booking;
 
 import java.time.LocalDateTime;
 
@@ -839,10 +841,10 @@ does depend on class <org.springframework.samples.petclinic.booking.adapter.out.
 #### ❌ Use Case in Wrong Package
 ```
 Class <org.springframework.samples.petclinic.booking.CreateBookingUseCase> 
-does not reside in a package '..application.port.in'
+does not reside at module root
 ```
 
-**Solution**: Move use case interfaces to `application.port.in` package.
+**Solution**: Move use case interfaces to module root package (e.g., `org.springframework.samples.petclinic.booking`) for Spring Modulith compliance.
 
 #### ❌ Repository in Wrong Package
 ```
