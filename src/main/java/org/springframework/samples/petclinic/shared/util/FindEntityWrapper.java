@@ -6,9 +6,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import java.util.function.Supplier;
 
 public class FindEntityWrapper {
-    public FindEntityWrapper() {
-    }
-
     public static <T> T findEntityById(Supplier<T> supplier) {
         try {
             return supplier.get();

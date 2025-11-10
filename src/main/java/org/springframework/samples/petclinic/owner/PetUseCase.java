@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PetUseCase {
-    Optional<PetDto> getPetA(Integer petId);
+    Optional<PetDto> getPet(Integer petId);
 
-    Optional<List<PetDto>> listPetsA();
+    Optional<List<PetDto>> listPets();
 
-    PetDto updatePetA(Integer petId, PetDto petDto);
+    PetDto updatePet(Integer petId, PetDto petDto);
 
-    Optional<Integer> deletePetA(Integer petId);
+    Optional<Integer> deletePet(Integer petId);
 }

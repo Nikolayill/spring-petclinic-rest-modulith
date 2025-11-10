@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VisitUseCase {
-    Optional<VisitDto> getVisitA(Integer visitId);
+    Optional<VisitDto> getVisit(Integer visitId);
 
-    Optional<List<VisitDto>> listVisitsA();
+    Optional<List<VisitDto>> listVisits();
 
-    VisitDto addVisitA(VisitDto visitDto);
+    VisitDto addVisit(VisitDto visitDto);
 
-    VisitDto updateVisitA(Integer visitId, VisitDto visitDto);
+    VisitDto updateVisit(Integer visitId, VisitDto visitDto);
 
-    Optional<Integer> deleteVisitA(Integer visitId);
+    Optional<Integer> deleteVisit(Integer visitId);
 }

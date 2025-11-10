@@ -22,13 +22,13 @@ public class PetUseCaseImpl implements PetUseCase {
     }
 
     @Override
-    public Optional<PetDto> getPetA(Integer petId) {
+    public Optional<PetDto> getPet(Integer petId) {
         return Optional.ofNullable(this.petService.findPetById(petId))
                        .map(petMapper::toPetDto);
     }
 
     @Override
-    public Optional<List<PetDto>> listPetsA() {
+    public Optional<List<PetDto>> listPets() {
         List<Pet> pets = new ArrayList<>(this.petService.findAllPets());
         if (pets.isEmpty()) {
             return Optional.empty();
@@ -37,7 +37,7 @@ public class PetUseCaseImpl implements PetUseCase {
     }
 
     @Override
-    public PetDto updatePetA(Integer petId, PetDto petDto) {
+    public PetDto updatePet(Integer petId, PetDto petDto) {
         Pet currentPet = this.petService.findPetById(petId);
         if (currentPet == null) {
             return null;
@@ -50,7 +50,7 @@ public class PetUseCaseImpl implements PetUseCase {
     }
 
     @Override
-    public Optional<Integer> deletePetA(Integer petId) {
+    public Optional<Integer> deletePet(Integer petId) {
         Pet pet = this.petService.findPetById(petId);
         if (pet == null) {
             return Optional.empty();

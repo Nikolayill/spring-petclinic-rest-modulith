@@ -22,13 +22,13 @@ public class VisitUseCaseImpl implements VisitUseCase {
     }
 
     @Override
-    public Optional<VisitDto> getVisitA(Integer visitId) {
+    public Optional<VisitDto> getVisit(Integer visitId) {
         return Optional.ofNullable(this.visitService.findVisitById(visitId))
                        .map(visitMapper::toVisitDto);
     }
 
     @Override
-    public Optional<List<VisitDto>> listVisitsA() {
+    public Optional<List<VisitDto>> listVisits() {
         Optional<List<VisitDto>> result;
         List<Visit> visits = new ArrayList<>(this.visitService.findAllVisits());
         if (!visits.isEmpty()) {
@@ -40,14 +40,14 @@ public class VisitUseCaseImpl implements VisitUseCase {
     }
 
     @Override
-    public VisitDto addVisitA(VisitDto visitDto) {
+    public VisitDto addVisit(VisitDto visitDto) {
         Visit visit = visitMapper.toVisit(visitDto);
         this.visitService.saveVisit(visit);
         return visitMapper.toVisitDto(visit);
     }
 
     @Override
-    public VisitDto updateVisitA(Integer visitId, VisitDto visitDto) {
+    public VisitDto updateVisit(Integer visitId, VisitDto visitDto) {
         VisitDto result;
         Visit currentVisit = this.visitService.findVisitById(visitId);
         if (currentVisit == null) {
@@ -62,7 +62,7 @@ public class VisitUseCaseImpl implements VisitUseCase {
     }
 
     @Override
-    public Optional<Integer> deleteVisitA(Integer visitId) {
+    public Optional<Integer> deleteVisit(Integer visitId) {
         Visit visit = this.visitService.findVisitById(visitId);
         if (visit == null) {
             return Optional.empty();

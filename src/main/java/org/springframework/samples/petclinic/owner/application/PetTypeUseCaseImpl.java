@@ -23,7 +23,7 @@ public class PetTypeUseCaseImpl implements PetTypeUseCase {
     }
 
     @Override
-    public Optional<List<PetTypeDto>> listPetTypesA() {
+    public Optional<List<PetTypeDto>> listPetTypes() {
         List<PetType> petTypes = new ArrayList<>(this.petTypeService.findAllPetTypes());
         if (petTypes.isEmpty()) {
             return Optional.empty();
@@ -32,20 +32,20 @@ public class PetTypeUseCaseImpl implements PetTypeUseCase {
     }
 
     @Override
-    public Optional<PetTypeDto> getPetTypeA(Integer petTypeId) {
+    public Optional<PetTypeDto> getPetType(Integer petTypeId) {
         return Optional.ofNullable(this.petTypeService.findPetTypeById(petTypeId))
                        .map(petTypeMapper::toPetTypeDto);
     }
 
     @Override
-    public PetTypeDto addPetTypeA(PetTypeFieldsDto petTypeFieldsDto) {
+    public PetTypeDto addPetType(PetTypeFieldsDto petTypeFieldsDto) {
         PetType petType = petTypeMapper.toPetType(petTypeFieldsDto);
         this.petTypeService.savePetType(petType);
         return petTypeMapper.toPetTypeDto(petType);
     }
 
     @Override
-    public PetTypeDto updatePetTypeA(Integer petTypeId, PetTypeDto petTypeDto) {
+    public PetTypeDto updatePetType(Integer petTypeId, PetTypeDto petTypeDto) {
         PetType currentPetType = this.petTypeService.findPetTypeById(petTypeId);
         if (currentPetType == null) {
             return null;
@@ -56,7 +56,7 @@ public class PetTypeUseCaseImpl implements PetTypeUseCase {
     }
 
     @Override
-    public Optional<Integer> deletePetTypeA(Integer petTypeId) {
+    public Optional<Integer> deletePetType(Integer petTypeId) {
         PetType petType = this.petTypeService.findPetTypeById(petTypeId);
         if (petType == null) {
             return Optional.empty();

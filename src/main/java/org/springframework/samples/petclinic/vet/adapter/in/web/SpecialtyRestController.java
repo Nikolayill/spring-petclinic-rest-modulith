@@ -53,7 +53,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
-        List<SpecialtyDto> specialties = specialtyUseCase.listSpecialtiesA();
+        List<SpecialtyDto> specialties = specialtyUseCase.listSpecialties();
         if (specialties.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,7 +63,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> getSpecialty(Integer specialtyId) {
-        Optional<SpecialtyDto> specialtyDto = specialtyUseCase.getSpecialtyA(specialtyId);
+        Optional<SpecialtyDto> specialtyDto = specialtyUseCase.getSpecialty(specialtyId);
         SpecialtyDto specialty = specialtyDto.orElse(null);
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -75,7 +75,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @Override
     public ResponseEntity<SpecialtyDto> addSpecialty(SpecialtyDto specialtyDto) {
         HttpHeaders headers = new HttpHeaders();
-        SpecialtyDto result = specialtyUseCase.getSpecialtyDtoA(specialtyDto);
+        SpecialtyDto result = specialtyUseCase.getSpecialtyDto(specialtyDto);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/specialties/{id}")
                                                 .buildAndExpand(result.getId()).toUri());
         return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
@@ -84,7 +84,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<SpecialtyDto> updateSpecialty(Integer specialtyId, SpecialtyDto specialtyDto) {
-        Optional<SpecialtyDto> response = specialtyUseCase.updateSpecialityA(specialtyId, specialtyDto);
+        Optional<SpecialtyDto> response = specialtyUseCase.updateSpeciality(specialtyId, specialtyDto);
 
         return response.map(r -> new ResponseEntity<>(r, HttpStatus.NO_CONTENT))
                        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -94,7 +94,7 @@ public class SpecialtyRestController implements SpecialtiesApi {
     @Transactional
     @Override
     public ResponseEntity<SpecialtyDto> deleteSpecialty(Integer specialtyId) {
-        Optional<Integer> r = specialtyUseCase.deleteSpecialityA(specialtyId);
+        Optional<Integer> r = specialtyUseCase.deleteSpeciality(specialtyId);
 
         if (r.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

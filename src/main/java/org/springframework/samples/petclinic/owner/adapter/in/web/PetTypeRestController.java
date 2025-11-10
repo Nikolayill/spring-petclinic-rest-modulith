@@ -46,14 +46,14 @@ public class PetTypeRestController implements PettypesApi {
     @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<PetTypeDto>> listPetTypes() {
-        return petTypeUseCase.listPetTypesA().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
-                           .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return petTypeUseCase.listPetTypes().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
+                             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
     @Override
     public ResponseEntity<PetTypeDto> getPetType(Integer petTypeId) {
-        return petTypeUseCase.getPetTypeA(petTypeId)
+        return petTypeUseCase.getPetType(petTypeId)
                            .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -62,7 +62,7 @@ public class PetTypeRestController implements PettypesApi {
     @Override
     public ResponseEntity<PetTypeDto> addPetType(PetTypeFieldsDto petTypeFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
-        PetTypeDto petTypeDto = petTypeUseCase.addPetTypeA(petTypeFieldsDto);
+        PetTypeDto petTypeDto = petTypeUseCase.addPetType(petTypeFieldsDto);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/pettypes/{id}").buildAndExpand(petTypeDto.getId()).toUri());
         return new ResponseEntity<>(petTypeDto, headers, HttpStatus.CREATED);
     }
@@ -70,7 +70,7 @@ public class PetTypeRestController implements PettypesApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<PetTypeDto> updatePetType(Integer petTypeId, PetTypeDto petTypeDto) {
-        PetTypeDto result = petTypeUseCase.updatePetTypeA(petTypeId, petTypeDto);
+        PetTypeDto result = petTypeUseCase.updatePetType(petTypeId, petTypeDto);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -81,7 +81,7 @@ public class PetTypeRestController implements PettypesApi {
     @Transactional
     @Override
     public ResponseEntity<PetTypeDto> deletePetType(Integer petTypeId) {
-        var result = petTypeUseCase.deletePetTypeA(petTypeId);
+        var result = petTypeUseCase.deletePetType(petTypeId);
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

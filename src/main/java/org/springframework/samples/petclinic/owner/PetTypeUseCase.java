@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PetTypeUseCase {
-    Optional<List<PetTypeDto>> listPetTypesA();
+    Optional<List<PetTypeDto>> listPetTypes();
 
-    Optional<PetTypeDto> getPetTypeA(Integer petTypeId);
+    Optional<PetTypeDto> getPetType(Integer petTypeId);
 
-    PetTypeDto addPetTypeA(PetTypeFieldsDto petTypeFieldsDto);
+    PetTypeDto addPetType(PetTypeFieldsDto petTypeFieldsDto);
 
-    PetTypeDto updatePetTypeA(Integer petTypeId, PetTypeDto petTypeDto);
+    PetTypeDto updatePetType(Integer petTypeId, PetTypeDto petTypeDto);
 
-    Optional<Integer> deletePetTypeA(Integer petTypeId);
+    Optional<Integer> deletePetType(Integer petTypeId);
 }

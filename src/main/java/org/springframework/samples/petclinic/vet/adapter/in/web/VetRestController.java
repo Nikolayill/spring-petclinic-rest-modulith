@@ -50,7 +50,7 @@ public class VetRestController implements VetsApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<VetDto>> listVets() {
-        List<VetDto> vets = vetUseCase.listVetsA();
+        List<VetDto> vets = vetUseCase.listVets();
         if (vets.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,7 +60,7 @@ public class VetRestController implements VetsApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<VetDto> getVet(Integer vetId) {
-        VetDto vet = vetUseCase.getVetA(vetId)
+        VetDto vet = vetUseCase.getVet(vetId)
                                .orElse(null);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,7 +72,7 @@ public class VetRestController implements VetsApi {
     @Override
     public ResponseEntity<VetDto> addVet(VetDto vetDto) {
         HttpHeaders headers = new HttpHeaders();
-        VetDto result = vetUseCase.addVetA(vetDto);
+        VetDto result = vetUseCase.addVet(vetDto);
         Integer id = result.getId();
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/vets/{id}").buildAndExpand(id).toUri());
         return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
@@ -81,7 +81,7 @@ public class VetRestController implements VetsApi {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<VetDto> updateVet(Integer vetId, VetDto vetDto) {
-        VetDto result = vetUseCase.updateVetA(vetId, vetDto);
+        VetDto result = vetUseCase.updateVet(vetId, vetDto);
 
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -93,7 +93,7 @@ public class VetRestController implements VetsApi {
     @Transactional
     @Override
     public ResponseEntity<VetDto> deleteVet(Integer vetId) {
-        if (vetUseCase.deleteVetA(vetId).isPresent()) {
+        if (vetUseCase.deleteVet(vetId).isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

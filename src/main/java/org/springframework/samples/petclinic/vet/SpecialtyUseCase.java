@@ -28,13 +28,13 @@ import java.util.Optional;
  * @author GitHub Copilot
  */
 public interface SpecialtyUseCase {
-    List<SpecialtyDto> listSpecialtiesA();
+    List<SpecialtyDto> listSpecialties();
 
-    Optional<SpecialtyDto> getSpecialtyA(Integer specialtyId);
+    Optional<SpecialtyDto> getSpecialty(Integer specialtyId);
 
-    SpecialtyDto getSpecialtyDtoA(SpecialtyDto specialtyDto);
+    SpecialtyDto getSpecialtyDto(SpecialtyDto specialtyDto);
 
-    Optional<SpecialtyDto> updateSpecialityA(Integer specialtyId, SpecialtyDto specialtyDto);
+    Optional<SpecialtyDto> updateSpeciality(Integer specialtyId, SpecialtyDto specialtyDto);
 
-    Optional<Integer> deleteSpecialityA(Integer specialtyId);
+    Optional<Integer> deleteSpeciality(Integer specialtyId);
 }

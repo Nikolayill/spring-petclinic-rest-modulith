@@ -50,14 +50,14 @@ public class VisitRestController implements VisitsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<List<VisitDto>> listVisits() {
-        return visitUseCase.listVisitsA().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
+        return visitUseCase.listVisits().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<VisitDto> getVisit( Integer visitId) {
-        return visitUseCase.getVisitA(visitId)
+        return visitUseCase.getVisit(visitId)
                            .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -66,7 +66,7 @@ public class VisitRestController implements VisitsApi {
     @Override
     public ResponseEntity<VisitDto> addVisit(VisitDto visitDto) {
         HttpHeaders headers = new HttpHeaders();
-        visitDto = visitUseCase.addVisitA(visitDto);
+        visitDto = visitUseCase.addVisit(visitDto);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/visits/{id}").buildAndExpand(visitDto.getId()).toUri());
         return new ResponseEntity<>(visitDto, headers, HttpStatus.CREATED);
     }
@@ -74,7 +74,7 @@ public class VisitRestController implements VisitsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<VisitDto> updateVisit(Integer visitId, VisitDto visitDto) {
-        VisitDto result = visitUseCase.updateVisitA(visitId, visitDto);
+        VisitDto result = visitUseCase.updateVisit(visitId, visitDto);
 
         if(result==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -87,7 +87,7 @@ public class VisitRestController implements VisitsApi {
     @Transactional
     @Override
     public ResponseEntity<VisitDto> deleteVisit(Integer visitId) {
-        var result = visitUseCase.deleteVisitA(visitId);
+        var result = visitUseCase.deleteVisit(visitId);
 
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

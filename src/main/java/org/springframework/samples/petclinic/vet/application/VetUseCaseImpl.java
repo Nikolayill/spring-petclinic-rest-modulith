@@ -30,18 +30,18 @@ public class VetUseCaseImpl implements VetUseCase {
     }
 
     @Override
-    public ArrayList<VetDto> listVetsA() {
+    public ArrayList<VetDto> listVets() {
         return new ArrayList<VetDto>(vetMapper.toVetDtos(this.vetService.findAllVets()));
     }
 
     @Override
-    public Optional<VetDto> getVetA(Integer vetId) {
+    public Optional<VetDto> getVet(Integer vetId) {
         return Optional.ofNullable(this.vetService.findVetById(vetId))
                        .map(vetMapper::toVetDto);
     }
 
     @Override
-    public VetDto addVetA(VetDto vetDto) {
+    public VetDto addVet(VetDto vetDto) {
         Vet vet = vetMapper.toVet(vetDto);
         if (vet.getNrOfSpecialties() > 0) {
             List<Specialty> vetSpecialities =
@@ -54,7 +54,7 @@ public class VetUseCaseImpl implements VetUseCase {
     }
 
     @Override
-    public VetDto updateVetA(Integer vetId, VetDto vetDto) {
+    public VetDto updateVet(Integer vetId, VetDto vetDto) {
         VetDto result = null;
 
         Vet currentVet = this.vetService.findVetById(vetId);
@@ -81,7 +81,7 @@ public class VetUseCaseImpl implements VetUseCase {
     }
 
     @Override
-    public Optional<Integer> deleteVetA(Integer vetId) {
+    public Optional<Integer> deleteVet(Integer vetId) {
         Vet vet = this.vetService.findVetById(vetId);
         if (vet != null) {
             Integer id = vet.getId();

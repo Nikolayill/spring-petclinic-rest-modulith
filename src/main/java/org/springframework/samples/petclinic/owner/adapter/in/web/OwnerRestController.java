@@ -50,14 +50,14 @@ public class OwnerRestController implements OwnersApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<List<OwnerDto>> listOwners(String lastName) {
-        return ownerUseCase.listOwnersA(lastName).map(r -> new ResponseEntity<>(r, HttpStatus.OK))
+        return ownerUseCase.listOwners(lastName).map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<OwnerDto> getOwner(Integer ownerId) {
-        return ownerUseCase.getOwnerA(ownerId)
+        return ownerUseCase.getOwner(ownerId)
                            .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -66,7 +66,7 @@ public class OwnerRestController implements OwnersApi {
     @Override
     public ResponseEntity<OwnerDto> addOwner(OwnerFieldsDto ownerFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
-        OwnerDto ownerDto = ownerUseCase.addOwnerA(ownerFieldsDto);
+        OwnerDto ownerDto = ownerUseCase.addOwner(ownerFieldsDto);
         headers.setLocation(UriComponentsBuilder.newInstance()
             .path("/api/owners/{id}").buildAndExpand(ownerDto.getId()).toUri());
         return new ResponseEntity<>(ownerDto, headers, HttpStatus.CREATED);
@@ -75,7 +75,7 @@ public class OwnerRestController implements OwnersApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<OwnerDto> updateOwner(Integer ownerId, OwnerFieldsDto ownerFieldsDto) {
-        OwnerDto result = ownerUseCase.updateOwnerA(ownerId, ownerFieldsDto);
+        OwnerDto result = ownerUseCase.updateOwner(ownerId, ownerFieldsDto);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -86,7 +86,7 @@ public class OwnerRestController implements OwnersApi {
     @Transactional
     @Override
     public ResponseEntity<OwnerDto> deleteOwner(Integer ownerId) {
-        var result = ownerUseCase.deleteOwnerA(ownerId);
+        var result = ownerUseCase.deleteOwner(ownerId);
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -97,7 +97,7 @@ public class OwnerRestController implements OwnersApi {
     @Override
     public ResponseEntity<PetDto> addPetToOwner(Integer ownerId, PetFieldsDto petFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
-        PetDto petDto = ownerUseCase.addPetToOwnerA(ownerId, petFieldsDto);
+        PetDto petDto = ownerUseCase.addPetToOwner(ownerId, petFieldsDto);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/pets/{id}")
             .buildAndExpand(petDto.getId()).toUri());
         return new ResponseEntity<>(petDto, headers, HttpStatus.CREATED);
@@ -106,7 +106,7 @@ public class OwnerRestController implements OwnersApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<Void> updateOwnersPet(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto) {
-        boolean success = ownerUseCase.updateOwnersPetA(ownerId, petId, petFieldsDto);
+        boolean success = ownerUseCase.updateOwnersPet(ownerId, petId, petFieldsDto);
         if (success) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -117,7 +117,7 @@ public class OwnerRestController implements OwnersApi {
     @Override
     public ResponseEntity<VisitDto> addVisitToOwner(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
-        VisitDto visitDto = ownerUseCase.addVisitToOwnerA(ownerId, petId, visitFieldsDto);
+        VisitDto visitDto = ownerUseCase.addVisitToOwner(ownerId, petId, visitFieldsDto);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/visits/{id}")
             .buildAndExpand(visitDto.getId()).toUri());
         return new ResponseEntity<>(visitDto, headers, HttpStatus.CREATED);
@@ -127,7 +127,7 @@ public class OwnerRestController implements OwnersApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<PetDto> getOwnersPet(Integer ownerId, Integer petId) {
-        return ownerUseCase.getOwnersPetA(ownerId, petId)
+        return ownerUseCase.getOwnersPet(ownerId, petId)
                            .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -46,7 +46,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public Optional<List<OwnerDto>> listOwnersA(String lastName) {
+    public Optional<List<OwnerDto>> listOwners(String lastName) {
         Collection<Owner> owners;
         if (lastName != null) {
             owners = this.ownerService.findOwnerByLastName(lastName);
@@ -60,20 +60,20 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public Optional<OwnerDto> getOwnerA(Integer ownerId) {
+    public Optional<OwnerDto> getOwner(Integer ownerId) {
         return Optional.ofNullable(this.ownerService.findOwnerById(ownerId))
                        .map(ownerMapper::toOwnerDto);
     }
 
     @Override
-    public OwnerDto addOwnerA(OwnerFieldsDto ownerFieldsDto) {
+    public OwnerDto addOwner(OwnerFieldsDto ownerFieldsDto) {
         Owner owner = ownerMapper.toOwner(ownerFieldsDto);
         this.ownerService.saveOwner(owner);
         return ownerMapper.toOwnerDto(owner);
     }
 
     @Override
-    public OwnerDto updateOwnerA(Integer ownerId, OwnerFieldsDto ownerFieldsDto) {
+    public OwnerDto updateOwner(Integer ownerId, OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = this.ownerService.findOwnerById(ownerId);
         if (currentOwner == null) {
             return null;
@@ -88,7 +88,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public Optional<Integer> deleteOwnerA(Integer ownerId) {
+    public Optional<Integer> deleteOwner(Integer ownerId) {
         Owner owner = this.ownerService.findOwnerById(ownerId);
         if (owner == null) {
             return Optional.empty();
@@ -98,7 +98,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public PetDto addPetToOwnerA(Integer ownerId, PetFieldsDto petFieldsDto) {
+    public PetDto addPetToOwner(Integer ownerId, PetFieldsDto petFieldsDto) {
         Pet pet = petMapper.toPet(petFieldsDto);
         Owner owner = new Owner();
         owner.setId(ownerId);
@@ -109,7 +109,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public boolean updateOwnersPetA(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto) {
+    public boolean updateOwnersPet(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto) {
         Owner currentOwner = this.ownerService.findOwnerById(ownerId);
         if (currentOwner != null) {
             Pet currentPet = this.petService.findPetById(petId);
@@ -125,7 +125,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public VisitDto addVisitToOwnerA(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto) {
+    public VisitDto addVisitToOwner(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto) {
         Visit visit = visitMapper.toVisit(visitFieldsDto);
         Pet pet = new Pet();
         pet.setId(petId);
@@ -135,7 +135,7 @@ public class OwnerUseCaseImpl implements OwnerUseCase {
     }
 
     @Override
-    public Optional<PetDto> getOwnersPetA(Integer ownerId, Integer petId) {
+    public Optional<PetDto> getOwnersPet(Integer ownerId, Integer petId) {
         Owner owner = this.ownerService.findOwnerById(ownerId);
         if (owner != null) {
             Pet pet = owner.getPet(petId);

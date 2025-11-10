@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OwnerUseCase {
-    Optional<List<OwnerDto>> listOwnersA(String lastName);
+    Optional<List<OwnerDto>> listOwners(String lastName);
 
-    Optional<OwnerDto> getOwnerA(Integer ownerId);
+    Optional<OwnerDto> getOwner(Integer ownerId);
 
-    OwnerDto addOwnerA(OwnerFieldsDto ownerFieldsDto);
+    OwnerDto addOwner(OwnerFieldsDto ownerFieldsDto);
 
-    OwnerDto updateOwnerA(Integer ownerId, OwnerFieldsDto ownerFieldsDto);
+    OwnerDto updateOwner(Integer ownerId, OwnerFieldsDto ownerFieldsDto);
 
-    Optional<Integer> deleteOwnerA(Integer ownerId);
+    Optional<Integer> deleteOwner(Integer ownerId);
 
-    PetDto addPetToOwnerA(Integer ownerId, PetFieldsDto petFieldsDto);
+    PetDto addPetToOwner(Integer ownerId, PetFieldsDto petFieldsDto);
 
-    boolean updateOwnersPetA(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto);
+    boolean updateOwnersPet(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto);
 
-    VisitDto addVisitToOwnerA(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto);
+    VisitDto addVisitToOwner(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto);
 
-    Optional<PetDto> getOwnersPetA(Integer ownerId, Integer petId);
+    Optional<PetDto> getOwnersPet(Integer ownerId, Integer petId);
 }

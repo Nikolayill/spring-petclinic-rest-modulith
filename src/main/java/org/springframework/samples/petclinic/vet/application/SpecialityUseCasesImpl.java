@@ -22,27 +22,27 @@ public class SpecialityUseCasesImpl implements SpecialtyUseCase {
     }
 
     @Override
-    public List<SpecialtyDto> listSpecialtiesA() {
+    public List<SpecialtyDto> listSpecialties() {
         List<SpecialtyDto> specialties = new ArrayList<SpecialtyDto>();
         specialties.addAll(specialtyMapper.toSpecialtyDtos(this.specialtyService.findAllSpecialties()));
         return specialties;
     }
 
     @Override
-    public Optional<SpecialtyDto> getSpecialtyA(Integer specialtyId) {
+    public Optional<SpecialtyDto> getSpecialty(Integer specialtyId) {
         return Optional.ofNullable(this.specialtyService.findSpecialtyById(specialtyId))
                        .map(specialtyMapper::toSpecialtyDto);
     }
 
     @Override
-    public SpecialtyDto getSpecialtyDtoA(SpecialtyDto specialtyDto) {
+    public SpecialtyDto getSpecialtyDto(SpecialtyDto specialtyDto) {
         Specialty specialty = specialtyMapper.toSpecialty(specialtyDto);
         this.specialtyService.saveSpecialty(specialty);
         return specialtyMapper.toSpecialtyDto(specialty);
     }
 
     @Override
-    public Optional<SpecialtyDto> updateSpecialityA(Integer specialtyId, SpecialtyDto specialtyDto) {
+    public Optional<SpecialtyDto> updateSpeciality(Integer specialtyId, SpecialtyDto specialtyDto) {
         Optional<SpecialtyDto> response = Optional.empty();
 
         Specialty currentSpecialty = this.specialtyService.findSpecialtyById(specialtyId);
@@ -55,7 +55,7 @@ public class SpecialityUseCasesImpl implements SpecialtyUseCase {
     }
 
     @Override
-    public Optional<Integer> deleteSpecialityA(Integer specialtyId) {
+    public Optional<Integer> deleteSpeciality(Integer specialtyId) {
         Specialty specialty = this.specialtyService.findSpecialtyById(specialtyId);
         Optional<Integer> r = Optional.ofNullable(specialty).map(Specialty::getId);
 

@@ -46,7 +46,7 @@ public class PetRestController implements PetsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<PetDto> getPet(Integer petId) {
-        return petUseCase.getPetA(petId)
+        return petUseCase.getPet(petId)
                          .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                          .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -54,7 +54,7 @@ public class PetRestController implements PetsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<List<PetDto>> listPets() {
-        return petUseCase.listPetsA().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
+        return petUseCase.listPets().map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                          .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -62,7 +62,7 @@ public class PetRestController implements PetsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<PetDto> updatePet(Integer petId, PetDto petDto) {
-        PetDto result = petUseCase.updatePetA(petId, petDto);
+        PetDto result = petUseCase.updatePet(petId, petDto);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -72,7 +72,7 @@ public class PetRestController implements PetsApi {
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Override
     public ResponseEntity<PetDto> deletePet(Integer petId) {
-        var result = petUseCase.deletePetA(petId);
+        var result = petUseCase.deletePet(petId);
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

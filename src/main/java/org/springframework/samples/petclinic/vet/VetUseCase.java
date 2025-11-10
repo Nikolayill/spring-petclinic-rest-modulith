@@ -28,13 +28,13 @@ import java.util.Optional;
  * @author GitHub Copilot
  */
 public interface VetUseCase {
-    ArrayList<VetDto> listVetsA();
+    ArrayList<VetDto> listVets();
 
-    Optional<VetDto> getVetA(Integer vetId);
+    Optional<VetDto> getVet(Integer vetId);
 
-    VetDto addVetA(VetDto vetDto);
+    VetDto addVet(VetDto vetDto);
 
-    VetDto updateVetA(Integer vetId, VetDto vetDto);
+    VetDto updateVet(Integer vetId, VetDto vetDto);
 
-    Optional<Integer> deleteVetA(Integer vetId);
+    Optional<Integer> deleteVet(Integer vetId);
 }
