@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.owner.domain.service.impl;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.owner.domain.event.VisitCreated;
 import org.springframework.samples.petclinic.owner.domain.port.out.VisitRepository;
 import org.springframework.samples.petclinic.owner.domain.model.Visit;
 import org.springframework.samples.petclinic.owner.domain.service.VisitService;
@@ -12,10 +14,12 @@ import java.util.Collection;
 
 @Service
 public class VisitServiceImpl implements VisitService {
-    protected final VisitRepository visitRepository;
+    private final VisitRepository visitRepository;
+    private final ApplicationEventPublisher events;
 
-    public VisitServiceImpl(VisitRepository visitRepository) {
+    public VisitServiceImpl(VisitRepository visitRepository, ApplicationEventPublisher events) {
         this.visitRepository = visitRepository;
+        this.events = events;
     }
 
     @Override
@@ -39,6 +43,13 @@ public class VisitServiceImpl implements VisitService {
     @Override
     @Transactional
     public void saveVisit(Visit visit) throws DataAccessException {
+        if (visit.getId() == null) {
+            events.publishEvent(new VisitCreated(
+                visit.getPet().getId(),
+                visit.getDate(),
+                visit.getDescription())
+            );
+        }
         visitRepository.save(visit);
 
     }
