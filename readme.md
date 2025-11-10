@@ -16,6 +16,169 @@ The [spring-petclinic-angular project](https://github.com/spring-petclinic/sprin
 
 ![alt petclinic-ermodel](petclinic-ermodel.png)
 
+## 🏗️ Architecture Overview
+
+This Spring PetClinic REST application implements **Hexagonal Architecture** (also known as Ports & Adapters) with **Spring Modulith** for module organization and automated architectural testing with **ArchUnit**.
+
+### 🎯 Architectural Principles
+
+- **Hexagonal Architecture**: Clear separation between business logic and infrastructure concerns
+- **Spring Modulith**: Modular monolith structure with enforced module boundaries
+- **API-First Design**: OpenAPI specification drives REST interface generation
+- **Test-Driven Architecture**: Automated architectural compliance verification
+
+### 📦 Module Structure
+
+The application is organized into business modules, each following hexagonal architecture:
+
+```
+petclinic/
+├── config/          # Configuration module (Spring beans, security, OpenAPI)
+├── shared/          # Cross-cutting concerns (security roles, utilities)
+├── owner/           # Owner management module 🏠
+├── user/            # User management module 👤  
+├── vet/             # Veterinarian management module 👨‍⚕️
+├── rest/            # REST API infrastructure (error handling, root controller)
+│   ├── api/         # Generated OpenAPI interfaces
+│   └── dto/         # Generated OpenAPI DTOs
+└── util/            # Utility classes
+```
+
+### 🔷 Hexagonal Architecture in Detail
+
+Each business module follows the same hexagonal structure:
+
+```
+module/
+├── application/
+│   ├── port/
+│   │   └── in/              # Use case interfaces (driving ports)
+│   └── *UseCaseImpl.java    # Use case implementations
+├── domain/
+│   ├── model/               # Domain entities  
+│   ├── port/
+│   │   └── out/             # Repository interfaces (driven ports)
+│   └── service/             # Domain services
+└── adapter/
+    ├── in/
+    │   └── web/             # REST controllers (driving adapters)
+    └── out/
+        └── persistence/     # Repository implementations (driven adapters)
+            ├── jdbc/        # JDBC implementations
+            ├── jpa/         # JPA implementations  
+            └── springdatajpa/ # Spring Data JPA repositories
+```
+
+### 🔄 Dependency Flow
+
+```mermaid
+graph TD
+    A[REST Controllers] --> B[Use Cases]
+    B --> C[Domain Services]
+    B --> D[Repository Interfaces]
+    D --> E[JDBC Adapters]
+    D --> F[JPA Adapters]
+    D --> G[Spring Data JPA Adapters]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#fce4ec
+    style G fill:#fce4ec
+```
+
+**Key Rules:**
+- ✅ **Adapters** depend on **Ports** (interfaces)
+- ✅ **Business Logic** is independent of infrastructure
+- ❌ **Ports** never depend on **Adapters**
+- ❌ **Domain** never depends on **REST/Database** specifics
+
+### 🛡️ Architectural Testing
+
+The architecture is automatically verified using **ArchUnit** with dynamic module discovery:
+
+#### HexagonalArchitectureTest.java
+
+```java
+@ParameterizedTest
+@MethodSource("businessModules")
+void shouldHavePortsAsInterfaces(String moduleName) {
+    // Verifies all ports are interfaces
+}
+
+@ParameterizedTest  
+@MethodSource("businessModules")
+void shouldHaveCorrectLayerDependencies(String moduleName) {
+    // Verifies dependency direction rules
+}
+```
+
+**Verified Rules:**
+1. 📋 **Use cases** in `application.port.in`
+2. 📋 **Repository interfaces** in `domain.port.out`  
+3. 📋 **Controllers** in `adapter.in.web`
+4. 📋 **No forbidden layer dependencies**
+5. 📋 **Ports are interfaces** (contracts)
+6. 📋 **Adapters don't depend on each other**
+
+**Test Results:** ✅ 21/21 architectural tests passing
+
+### 🚀 Module Discovery
+
+Modules are automatically discovered from Spring Modulith configuration:
+
+```java
+ApplicationModules modules = ApplicationModules.of(PetClinicApplication.class);
+// Dynamically discovers: owner, user, vet (business modules)
+// Excludes: config, shared, rest, util (infrastructure modules)
+```
+
+### 🎨 Benefits of This Architecture
+
+| Benefit | Description | Example |
+|---------|-------------|---------|
+| **🧪 Testability** | Business logic tested independently | Mock repository interfaces |
+| **🔄 Flexibility** | Easy to swap adapters | JDBC ↔ JPA ↔ Spring Data |
+| **📦 Modularity** | Clear module boundaries | Owner module = complete feature |
+| **🛡️ Maintainability** | Architecture rules enforced | Automated compliance verification |
+| **📈 Scalability** | Independent module evolution | Add new modules following pattern |
+
+### 🔧 Technology Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Web** | Spring Boot 3.4, REST Controllers, OpenAPI 3.1 |
+| **Business** | Spring Framework, Use Case Pattern |
+| **Persistence** | Spring Data JPA, JPA/Hibernate, JDBC |
+| **Database** | H2 (default), MySQL, PostgreSQL, HSQLDB |
+| **Architecture** | Spring Modulith, ArchUnit, Hexagonal Architecture |
+| **Testing** | JUnit 5, Spring Boot Test, Testcontainers |
+
+### 📊 Module Overview
+
+| Module | Entities | Controllers | Responsibilities |
+|--------|----------|-------------|------------------|
+| **👤 User** | User, Role | UserRestController | User management & authentication |
+| **🏠 Owner** | Owner, Pet, PetType, Visit | 4 Controllers | Pet owner management |
+| **👨‍⚕️ Vet** | Vet, Specialty | VetRestController, SpecialtyRestController | Veterinarian management |
+
+Each module is **self-contained** with its own:
+- 🎯 Use cases (business operations)
+- 🏗️ Domain models (entities)  
+- 🔌 Adapters (REST + persistence)
+- 🧪 Tests (unit + integration)
+
+### 🚦 Getting Started with the Architecture
+
+1. **📖 Explore a Module**: Start with `user/` (simplest module)
+2. **🔍 Check Tests**: Run `HexagonalArchitectureTest` 
+3. **🏃‍♂️ Add New Feature**: Follow the existing hexagonal pattern
+4. **🔧 Verify**: Architecture tests auto-verify compliance
+
+For detailed implementation guidance, see our [Architecture Decision Records](docs/adr/).
+
 ## Running Petclinic locally
 
 ### With Maven command line
