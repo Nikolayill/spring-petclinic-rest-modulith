@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.samples.petclinic.notification.NotificationUseCase;
+import org.springframework.samples.petclinic.notification.domain.RegisterNotificationService;
 import org.springframework.samples.petclinic.notification.domain.model.Notification;
 import org.springframework.samples.petclinic.notification.domain.port.out.NotificationServicePort;
 import org.springframework.samples.petclinic.notification.domain.port.out.VetSelectionPort;
@@ -23,11 +24,14 @@ public class NotificationUseCaseImpl implements NotificationUseCase {
 
     private static final Logger logger = LoggerFactory.getLogger(NotificationUseCaseImpl.class);
 
+    private final RegisterNotificationService registerNotificationService;
     private final VetSelectionPort vetSelectionPort;
     private final NotificationServicePort notificationServicePort;
 
-    public NotificationUseCaseImpl(VetSelectionPort vetSelectionPort,
-                                 NotificationServicePort notificationServicePort) {
+    public NotificationUseCaseImpl(RegisterNotificationService registerNotificationService,
+                                   VetSelectionPort vetSelectionPort,
+                                   NotificationServicePort notificationServicePort) {
+        this.registerNotificationService = registerNotificationService;
         this.vetSelectionPort = vetSelectionPort;
         this.notificationServicePort = notificationServicePort;
     }
@@ -68,7 +72,7 @@ public class NotificationUseCaseImpl implements NotificationUseCase {
 
             logger.info("Successfully sent notification for visit {} to vet {}",
                        visitCreated.id(), selectedVet.name());
-
+            registerNotificationService.register();
         }  catch (Exception e) {
             logger.error("Unexpected error processing visit created event for visit {}: {}",
                         visitCreated.id(), e.getMessage(), e);

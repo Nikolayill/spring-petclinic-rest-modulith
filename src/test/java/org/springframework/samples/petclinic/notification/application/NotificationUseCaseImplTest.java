@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.samples.petclinic.notification.domain.RegisterNotificationService;
 import org.springframework.samples.petclinic.notification.domain.model.Notification;
 import org.springframework.samples.petclinic.notification.domain.port.out.NotificationServicePort;
 import org.springframework.samples.petclinic.notification.domain.port.out.VetSelectionPort;
@@ -31,11 +32,14 @@ class NotificationUseCaseImplTest {
     @Mock
     private NotificationServicePort notificationServicePort;
 
+    @Mock
+    private RegisterNotificationService registerNotificationService;
+
     private NotificationUseCaseImpl notificationUseCase;
 
     @BeforeEach
     void setUp() {
-        notificationUseCase = new NotificationUseCaseImpl(vetSelectionPort, notificationServicePort);
+        notificationUseCase = new NotificationUseCaseImpl(registerNotificationService, vetSelectionPort, notificationServicePort);
     }
 
     @Test
